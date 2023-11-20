@@ -1,0 +1,9 @@
+# Python
+__pycache__/
+
+# Local configs
+config/*.local*
+
+# VSCode
+.vscode/*
+!.vscode/launch.json

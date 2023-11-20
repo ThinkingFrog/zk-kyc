@@ -1,0 +1,51 @@
+exclude: |
+ (?x) (
+  ^docs/ |
+  ^build/ |
+  ^bin/
+  )
+
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0
+    hooks:
+    # Config files
+    -   id: check-yaml
+    -   id: check-json
+    -   id: pretty-format-json
+        args: ["--autofix", "--no-sort-keys"]
+    -   id: check-toml
+    -   id: requirements-txt-fixer
+
+    # Scripts
+    -   id: check-executables-have-shebangs
+    -   id: check-shebang-scripts-are-executable
+
+    # Common formatting
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+    -   id: fix-byte-order-marker
+    -   id: mixed-line-ending
+
+    # Filesystem
+    -   id: check-added-large-files
+    -   id: check-symlinks
+    -   id: destroyed-symlinks
+
+# Python
+-   repo: local
+    hooks:
+      - id: black
+        name: black
+        entry: black
+        language: system
+        stages: [commit]
+        types: [python]
+
+      - id: isort
+        name: isort
+        entry: isort
+        language: system
+        stages: [commit]
+        types: [python]
+        args: ["--profile", "black"]

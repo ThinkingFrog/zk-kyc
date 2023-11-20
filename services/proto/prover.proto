@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package zk_kyc;
+
+message ProofRequest {
+  uint64 user_id = 1;
+  uint64 age_input = 2;
+  repeated uint64 country_inputs = 3;
+}
+
+message ProofResponse {
+  bytes proof = 1;
+  uint32 status_code = 2;
+  string status_msg = 3;
+}
+
+service Prover {
+  rpc get_proof(ProofRequest) returns (ProofResponse) {}
+}

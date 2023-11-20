@@ -1,0 +1,13 @@
+[workspace]
+
+members = [
+    "zkkyc_lib",
+    "zkkyc_c_bindings",
+]
+
+[profile.release]
+strip = true
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"

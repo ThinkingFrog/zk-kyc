@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package zk_kyc;
+
+message VerificationRequest {
+  bytes proof = 1;
+  uint64 public_age = 2;
+  repeated uint64 public_countries = 3;
+}
+
+message VerificationResponse { bool kyc_passed = 1; }
+
+service Verifier {
+  rpc verify_proof(VerificationRequest) returns (VerificationResponse) {}
+}

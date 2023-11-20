@@ -1,0 +1,6 @@
+[dispatcher_server]
+verifier_host = "localhost"
+verifier_port = "50053"
+port = "50052"
+kyc_file = "config/kyc_params.json"
+provers_file = "config/provers_list.json"

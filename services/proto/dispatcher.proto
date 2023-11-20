@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package zk_kyc;
+
+message UserRequest {
+  uint64 user_id = 1;
+  uint64 vdr_id = 2;
+}
+
+message UserResponse {
+  bool kyc_result = 1;
+  uint32 status_code = 2;
+  string status_msg = 3;
+}
+
+service Dispatcher {
+  rpc request_verification(UserRequest) returns (UserResponse) {}
+}

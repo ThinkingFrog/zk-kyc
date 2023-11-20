@@ -1,0 +1,3 @@
+[verifier_server]
+port = "50053"
+verifier_lib = "lib/libzkkyc_c_bindings.so"

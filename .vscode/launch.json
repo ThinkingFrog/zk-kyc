@@ -1,0 +1,52 @@
+{
+  "configurations": [
+    {
+      "name": "Prover Server",
+      "type": "python",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/services",
+      "module": "prover_server",
+      "justMyCode": true,
+      "args": [
+        "--config",
+        "config/prover_server.toml"
+      ]
+    },
+    {
+      "name": "Verifier Server",
+      "type": "python",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/services",
+      "module": "verifier_server",
+      "justMyCode": true,
+      "args": [
+        "--config",
+        "config/verifier_server.toml"
+      ]
+    },
+    {
+      "name": "Dispatcher Server",
+      "type": "python",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/services",
+      "module": "dispatcher_server",
+      "justMyCode": true,
+      "args": [
+        "--config",
+        "config/dispatcher_server.toml"
+      ]
+    },
+    {
+      "name": "User",
+      "type": "python",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/services",
+      "module": "user",
+      "justMyCode": true,
+      "args": [
+        "--config",
+        "config/user.toml"
+      ]
+    }
+  ]
+}

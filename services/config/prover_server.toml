@@ -1,0 +1,8 @@
+[prover_server]
+port="50051"
+db_host="localhost"
+db_port="19000"
+db_name=""
+db_user="default"
+db_pwd=""
+prover_lib="lib/libzkkyc_c_bindings.so"
