@@ -33,7 +33,8 @@ repos:
     -   id: destroyed-symlinks
 
 # Python
--   repo: local
+-   repo: https://github.com/psf/black
+    rev: 24.2.0
     hooks:
       - id: black
         name: black
@@ -42,6 +43,9 @@ repos:
         stages: [commit]
         types: [python]
 
+-   repo: https://github.com/PyCQA/isort
+    rev: 5.13.2
+    hooks:
       - id: isort
         name: isort
         entry: isort
