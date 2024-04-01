@@ -55,14 +55,6 @@ touch user/proto_generated/__init__.py
 sed -i 's/import dispatcher_pb2 as dispatcher__pb2/import user.proto_generated.dispatcher_pb2 as dispatcher__pb2/' \
     user/proto_generated/dispatcher_pb2_grpc.py
 
-# Generate proto files for frontend
-mkdir -p ../frontend/proto_generated
-protoc \
-    -I proto \
-    --js_out=import_style=commonjs,binary:../frontend/proto_generated \
-    --grpc-web_out=import_style=commonjs,mode=grpcwebtext:../frontend/proto_generated \
-    proto/dispatcher.proto
-
 # Run formatting
 pre-commit run --files prover_server/proto_generated/*
 pre-commit run --files verifier_server/proto_generated/*

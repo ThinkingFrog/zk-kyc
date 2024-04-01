@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZK KYC Web Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin: 20px;
+        }
+
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('form').on('submit', function (event) {
+                $.ajax({
+                    data: {
+                        vdr_id: $('#vdr_id').val(),
+                        user_id: $('#user_id').val()
+                    },
+                    type: 'POST',
+                    url: '/send_request'
+                })
+                    .done(function (data) {
+                        if (data.error) {
+                            $('#errorAlert').text(data.error).show();
+                            $('#successAlert').hide();
+                        }
+                        else {
+                            $('#successAlert').text(data.response).show();
+                            $('#errorAlert').hide();
+                        }
+                    });
+                event.preventDefault();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <form id="input_form" method="post" action="/send_request">
+            <label for="vdr_id"> Input VDR ID: </label> <br>
+            <input type="number" id="vdr_id" name="vdr_id" placeholder="1" required min="1" />
+
+            <br><br>
+
+            <label for="user_id"> Input User ID: </label> <br>
+            <input type="number" id="user_id" name="user_id" placeholder="1607" required min="1" />
+
+            <br><br>
+
+            <input type="submit" value="Submit">
+        </form>
+
+        <br><br>
+        KYC passed:
+        <div id="successAlert" style="display:none;"></div>
+        <div id="errorAlert" style="display:none;"></div>
+    </div>
+</body>
+
+</html>
