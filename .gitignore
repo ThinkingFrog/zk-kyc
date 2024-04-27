@@ -7,6 +7,3 @@ config/*.local*
 # VSCode
 .vscode/*
 !.vscode/launch.json
-
-# JS
-node_modules/
