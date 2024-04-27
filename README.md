@@ -14,9 +14,7 @@
 
 Его стоит использовать, если исходный код сервисов был изменен
 
-Для отправки KYC запроса можно также использовать docker compose: `docker compose run user-client --vdr-id <vdr id> --user-id <user id>`
-
-Например, `docker compose run --rm user-client --vdr-id 1 --user-id 1607`
+Для отправки KYC запроса используется веб интерфейс, который автоматически поднимается из сервиса `user` и располагается по адресу `localhost:5000`
 
 ## Сборка
 

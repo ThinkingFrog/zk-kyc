@@ -2,8 +2,13 @@ import click
 import click_config_file
 import grpc
 import toml
+from flask import Flask, jsonify, render_template, request
 from user.proto_generated.dispatcher_pb2 import UserRequest
 from user.proto_generated.dispatcher_pb2_grpc import DispatcherStub
+
+app = Flask(__name__)
+dispatcher_host = ""
+dispatcher_port = ""
 
 
 def toml_config_provider(file_path, cmd_name):
@@ -11,19 +16,31 @@ def toml_config_provider(file_path, cmd_name):
         return toml.load(cfg_data)[cmd_name]
 
 
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
+@app.route("/send_request", methods=["POST"])
+def send_request():
+    print(request)
+    vdr_id = int(request.form["vdr_id"])
+    user_id = int(request.form["user_id"])
+
+    with grpc.insecure_channel(f"{dispatcher_host}:{dispatcher_port}") as channel:
+        stub = DispatcherStub(channel)
+        kyc_response = stub.request_verification(
+            UserRequest(vdr_id=vdr_id, user_id=user_id)
+        )
+
+    if kyc_response.status_code != 0:
+        return jsonify({"response": kyc_response.status_msg})
+
+    response_msg = "Passed" if kyc_response.kyc_result else "Didn't pass"
+    return jsonify({"response": response_msg})
+
+
 @click.command(name="user")
-@click.option(
-    "--vdr-id",
-    type=int,
-    help="VDR ID in which user's personal data is stored",
-    required=True,
-)
-@click.option(
-    "--user-id",
-    type=int,
-    help="User ID in given VDR",
-    required=True,
-)
 @click.option(
     "--host",
     type=str,
@@ -42,18 +59,13 @@ def toml_config_provider(file_path, cmd_name):
     cmd_name="user",
 )
 def main(
-    vdr_id: int,
-    user_id: int,
     host: str,
     port: str,
 ):
-    with grpc.insecure_channel(f"{host}:{port}") as channel:
-        stub = DispatcherStub(channel)
-        kyc_response = stub.request_verification(
-            UserRequest(vdr_id=vdr_id, user_id=user_id)
-        )
+    global dispatcher_host
+    dispatcher_host = host
 
-    if kyc_response.status_code != 0:
-        print(f"Error occurred: {kyc_response.status_msg}")
-    else:
-        print(f"KYC passed: {kyc_response.kyc_result}")
+    global dispatcher_port
+    dispatcher_port = port
+
+    app.run(debug=True)
