@@ -35,8 +35,9 @@ def send_request():
 
     if kyc_response.status_code != 0:
         return jsonify({"response": kyc_response.status_msg})
-    else:
-        return jsonify({"response": kyc_response.kyc_result})
+
+    response_msg = "Passed" if kyc_response.kyc_result else "Didn't pass"
+    return jsonify({"response": response_msg})
 
 
 @click.command(name="user")
