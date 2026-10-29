@@ -4,6 +4,17 @@ __pycache__/
 # Local configs
 config/*.local*
 
-# VSCode
-.vscode/*
-!.vscode/launch.json
+# SRT
+.bash_profile
+.bashrc
+.env
+.gitconfig
+.gitmodules
+.idea
+.claude/
+.mcp.json
+.profile
+.ripgreprc
+.vscode
+.zprofile
+.zshrc
